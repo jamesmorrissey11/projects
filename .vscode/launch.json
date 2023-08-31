@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Data Generator",
+            "name": "Generate Data",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/code_understanding/data/generator.py",
@@ -19,7 +19,7 @@
               },
         },
         {
-            "name": "Ingest",
+            "name": "Ingest Data",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/code_understanding/ingest.py",
@@ -35,7 +35,7 @@
               },
         },
         {
-            "name": "Deploy FastAPI",
+            "name": "Deploy",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/code_understanding/app/main.py",
