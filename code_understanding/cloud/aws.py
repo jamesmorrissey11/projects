@@ -20,7 +20,7 @@ def upload_dataset(file_name, bucket, object_name=None):
     # Upload the file
     s3_client = boto3.client('s3')
     try:
-        response = s3_client.upload_file(file_name, bucket, object_name)
+        s3_client.upload_file(file_name, bucket, object_name)
     except ClientError as e:
         logging.error(e)
         return False
@@ -29,7 +29,7 @@ def upload_dataset(file_name, bucket, object_name=None):
 def upload_model(local_dir, bucket_name):
     s3_client = boto3.client('s3')
     model_version = local_dir.split('/')[-2]
-    for root, dirs, files in os.walk(local_dir):
+    for root, _, files in os.walk(local_dir):
         for filename in files:
             path_to_local_file = os.path.join(root, filename)
             s3_path = f"models/{model_version}/{filename}"
