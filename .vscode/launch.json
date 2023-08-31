@@ -1,0 +1,48 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Data Generator",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/code_understanding/data/generator.py",
+            "cwd": "/workspaces/projects/code_understanding",
+            "console": "integratedTerminal",
+            "args": [
+                "--repo_dir", "/workspaces/projects/code_understanding/data/code/",
+                "--data_dir", "/home/vscode/projects/code_understanding/datasets/",
+                "--repo_url","https://github.com/hwchase17/langchain",
+                "--download", "no"
+            ],
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/code_understanding"
+              },
+        },
+        {
+            "name": "Ingest",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/code_understanding/ingest.py",
+            "cwd": "/workspaces/projects/code_understanding",
+            "console": "integratedTerminal",
+            "args": [
+                "--dataset",  "/home/vscode/projects/code_understanding/datasets/2023-08-31_04-21-24/data.json",
+                "--model_dir", "/home/vscode/projects/code_understanding/models/",
+            ],
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/code_understanding"
+              },
+        },
+        {
+            "name": "Deploy FastAPI",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/code_understanding/deploy/main.py",
+            "cwd": "/workspaces/projects/code_understanding",
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/code_understanding"
+              },
+        }
+    ]
+}
