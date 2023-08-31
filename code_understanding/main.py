@@ -5,20 +5,9 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.prompts import PromptTemplate
 from langchain.vectorstores import DeepLake
 from pydantic import BaseModel
+from langchain.chains.question_answering import load_qa_chain
+from langchain.llms import OpenAI
 import os 
-
-def build_retriever(model_dir):
-    db = DeepLake(
-        dataset_path=model_dir,
-        embedding=OpenAIEmbeddings(),
-        read_only=True,
-    )
-    retriever = db.as_retriever(
-        search_type="mmr",  # Also test "similarity"
-        search_kwargs={"k": 3},
-    )
-    return retriever
-
 
 def build_qa_chain(retriever, qa_chain_prompt):
     llm = ChatOpenAI()
@@ -46,11 +35,15 @@ class QuestionItem(BaseModel):
     question: str
 
 
-@app.get("/")
-async def code_qa_item(item: QuestionItem):
-    qa_chain_prompt = build_qa_prompt()
-    retriever = build_retriever(model_dir="/Users/jamesmorrissey//projects/code_understanding/models/2023-08-31_01-20-43")
-    qa_chain = build_qa_chain(retriever=retriever, qa_chain_prompt=qa_chain_prompt)
-    result = qa_chain({"query": item.question})
-    answer = result["result"]
-    return answer
+@app.post("/")
+def code_qa_item(item: QuestionItem):
+    model_dir ="/code/app/model"
+    db = DeepLake(
+        dataset_path=model_dir,
+        embedding=OpenAIEmbeddings(),
+        read_only=True,
+    )
+    relevant_docs = db.max_marginal_relevance_search(item.question)
+    qa_chain = load_qa_chain(OpenAI(temperature=0), chain_type="stuff")
+    answer = qa_chain.run(input_documents=relevant_docs, question=item.question)
+    return {"answer": answer}
