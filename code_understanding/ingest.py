@@ -23,6 +23,7 @@ def parse_args():
     parser.add_argument(
         "--model_dir", type=str, required=True, help="where to store vector db"
     )
+    parser.add_argument("--config_dir", type=str, required=True, help="where to store the model config")
     args = parser.parse_args()
 
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -50,5 +51,5 @@ if __name__ == "__main__":
     log_model_config(
         logger=logger,
         args=args,
-        log_dir="/workspaces/projects/code_understanding/model",
+        log_dir=args.config_dir,
     )
