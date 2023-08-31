@@ -12,8 +12,6 @@ from utility import get_logger, log_model_config
 
 import os
 
-os.environ["OPENAI_API_KEY"] = "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"
-
 logger = get_logger()
 
 
