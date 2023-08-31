@@ -6,19 +6,23 @@ from langchain.utilities import GoogleSerperAPIWrapper
 from langchain.vectorstores import DeepLake
 
 
-def create_web_search_tool(serper_api_key) -> Tool:
+def create_web_search_tool(
+    serper_api_key: str, tool_name: str, tool_description: str
+) -> Tool:
     web_search = GoogleSerperAPIWrapper(
         serper_api_key=serper_api_key,
     )
     web_search_tool = Tool(
-        name="Web Search",
+        name=tool_name,
         func=web_search.run,
-        description="useful for when you need to answer questions about current information. input should be a fully formed question",
+        description=tool_description,
     )
     return web_search_tool
 
 
-def create_vectorstore_search_tool(model_dir) -> Tool:
+def create_vectorstore_search_tool(
+    model_dir: str, tool_name: str, tool_description: str
+) -> Tool:
     retrieval_llm = OpenAI(temperature=0)
     db = DeepLake(
         dataset_path=model_dir,
@@ -29,8 +33,8 @@ def create_vectorstore_search_tool(model_dir) -> Tool:
         llm=retrieval_llm, retriever=db.as_retriever(), chain_type="stuff"
     )
     vectorstore_search_tool = Tool(
-        name="Search",
+        name=tool_name,
         func=vectorstore_retriever.run,
-        description="useful for when you need to answer questions about langchain using code files directly from the repository. input should be a fully formed question",
+        description=tool_description,
     )
     return vectorstore_search_tool
