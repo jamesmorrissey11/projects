@@ -50,5 +50,5 @@ if __name__ == "__main__":
     log_model_config(
         logger=logger,
         args=args,
-        log_dir="/Users/jamesmorrissey/Tutorials/portfolio/code-understanding/model",
+        log_dir="/workspaces/projects/code_understanding/model",
     )

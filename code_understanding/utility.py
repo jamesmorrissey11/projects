@@ -40,4 +40,4 @@ def log_model_config(args, logger, log_dir):
         "w",
     ) as f:
         json.dump(vars(args), f)
-    logger.info(f"Config stored at deploy/config.json")
+    logger.info(f"Config stored at {log_dir}/config.json")
