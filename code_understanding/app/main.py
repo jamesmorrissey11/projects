@@ -8,17 +8,20 @@ from pydantic import BaseModel
 import os
 
 
-def build_retriever():
-    model_dir = "/Users/jamesmorrissey/Models/2023-08-30_18-02-44/"
-    db = DeepLake(
-        dataset_path=model_dir,
-        embedding=OpenAIEmbeddings(),
-        read_only=True,
-    )
-    retriever = db.as_retriever(
-        search_type="mmr",  # Also test "similarity"
-        search_kwargs={"k": 3},
-    )
+def build_retriever(model_dir):
+    try:
+        db = DeepLake(
+            dataset_path=model_dir,
+            embedding=OpenAIEmbeddings(),
+            read_only=True,
+        )
+        retriever = db.as_retriever(
+            search_type="mmr",  # Also test "similarity"
+            search_kwargs={"k": 3},
+        )
+    except Exception as e: 
+        print(f"Unable to load DeepLake vectorstore from {model_dir}")
+        return None 
     return retriever
 
 
@@ -51,7 +54,7 @@ class QuestionItem(BaseModel):
 @app.post("/")
 async def code_qa_item(item: QuestionItem):
     qa_chain_prompt = build_qa_prompt()
-    retriever = build_retriever()
+    retriever = build_retriever(model_dir="/home/vscode/projects/code_understanding/models/2023-08-31_04-31-27")
     qa_chain = build_qa_chain(retriever=retriever, qa_chain_prompt=qa_chain_prompt)
     result = qa_chain({"query": item.question})
     answer = result["result"]
