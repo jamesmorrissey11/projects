@@ -6,11 +6,11 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/code_understanding/data/generator.py",
-            "cwd": "/workspaces/projects/code_understanding",
+            "cwd": "/Users/jamesmorrissey/Github/projects/code_understanding",
             "console": "integratedTerminal",
             "args": [
-                "--repo_dir", "/workspaces/projects/code_understanding/data/code/",
-                "--data_dir", "/home/vscode/projects/code_understanding/datasets/",
+                "--repo_dir", "/Users/jamesmorrissey/Github/projects/code_understanding/data/code/",
+                "--data_dir", "/Users/jamesmorrissey//projects/code_understanding/datasets/",
                 "--repo_url","https://github.com/hwchase17/langchain",
                 "--download", "no"
             ],
@@ -23,11 +23,12 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/code_understanding/ingest.py",
-            "cwd": "/workspaces/projects/code_understanding",
+            "cwd": "/Users/jamesmorrissey/Github/projects/code_understanding",
             "console": "integratedTerminal",
             "args": [
-                "--dataset",  "/home/vscode/projects/code_understanding/datasets/2023-08-31_04-21-24/data.json",
-                "--model_dir", "/home/vscode/projects/code_understanding/models/",
+                "--dataset",  "/Users/jamesmorrissey//projects/code_understanding/datasets/2023-08-31_01-16-44/data.json",
+                "--model_dir", "/Users/jamesmorrissey//projects/code_understanding/models/",
+                "--config_dir", "/Users/jamesmorrissey/Github/projects/code_understanding/app"
             ],
             "env": {
                 "PYTHONPATH": "${workspaceFolder}/code_understanding"
@@ -37,8 +38,8 @@
             "name": "Deploy FastAPI",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/code_understanding/deploy/main.py",
-            "cwd": "/workspaces/projects/code_understanding",
+            "program": "${workspaceFolder}/code_understanding/app/main.py",
+            "cwd": "/Users/jamesmorrissey/Github/projects/code_understanding",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${workspaceFolder}/code_understanding"
